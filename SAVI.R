@@ -1,0 +1,15 @@
+library(raster)
+library(sp,rgeos)
+red=brick("E:\\PAPERS\\DATA\\2020-jan_sentinel\\L1C_T45QUF_A023811_20200113T045526\\S2A_MSIL1C_20200113T045131_N0208_R076_T45QUF_20200113T064237.SAFE\\RT_T45QUF_20200113T045131_B04.tif")
+nir=brick("E:\\PAPERS\\DATA\\2020-jan_sentinel\\L1C_T45QUF_A023811_20200113T045526\\S2A_MSIL1C_20200113T045131_N0208_R076_T45QUF_20200113T064237.SAFE\\RT_T45QUF_20200113T045131_B08.tif")
+l=0.5
+a=(nir-red)
+b=(nir+red+l)
+c=(1+l)
+SAVI=(a/b)*c
+print(SAVI)
+plot(SAVI)
+library(prettymapr)
+addnortharrow()
+addscalebar()
+writeRaster(SAVI,filename = "E:\\PAPERS\\DATA\\2020-jan_sentinel\\Output\\SAVI.tif",format="GTiff",overwrite=TRUE)
